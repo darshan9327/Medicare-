@@ -27,9 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     await Future.delayed(const Duration(seconds: 5));
 
-    if (isLoggedIn) {
-      Get.offAll(() => const DashboardScreen());
-    } else if (!isOnboarded) {
+    if (!isOnboarded) {
       Get.offAll(() => const OnboardingScreen());
     } else if (isLoggedIn) {
       Get.offAll(() => const DashboardScreen());
