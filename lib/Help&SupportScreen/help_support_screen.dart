@@ -32,7 +32,7 @@ class HelpSupportScreen extends StatelessWidget {
       backgroundColor: Color(0xFFF5F7FA),
       appBar: AppBar(
         title: Text('Help & Support'),
-        backgroundColor: Color(0xFF2563EB),
+        backgroundColor: Color(0xff478ef8),
         foregroundColor: Colors.white,
         elevation: 0,
       ),
