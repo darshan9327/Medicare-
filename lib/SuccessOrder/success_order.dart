@@ -106,10 +106,8 @@ class _SuccessOrderState extends State<SuccessOrder> {
                         )
                       ],
                       borderRadius: BorderRadius.circular(12)),
-                  child: Expanded(
-                      child: Text("📱 We will contact you via WhatsApp/Email for delivery confirmation",
-                          style: TextStyle(color: Colors.blue)
-                      )
+                  child: Text("📱 We will contact you via WhatsApp/Email for delivery confirmation",
+                      style: TextStyle(color: Colors.blue)
                   ),
                 ),
                 SizedBox(height: SConfig.sHeight * 0.035),

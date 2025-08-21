@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medicare/ProfileInformationScreen/profile_information.dart';
 import 'package:medicare/SplashScreen/splash_screen.dart';
 import 'CommonScreens/size_config.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff478ef8))
       ),
-      home: SplashScreen()
+      home: ProfileInformation()
     );
   }
 }
