@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicare/ProfileInformationScreen/profile_information.dart';
 import 'package:medicare/SplashScreen/splash_screen.dart';
+import 'package:medicare/SuccessOrder/success_order.dart';
 import 'CommonScreens/size_config.dart';
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff478ef8))
       ),
-      home: ProfileInformation()
+      home: SuccessOrder(orderId: "", amount: 10, paymentStatus: "paymentStatus", orderStatus: "us")
     );
   }
 }
