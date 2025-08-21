@@ -111,6 +111,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 type: WormType.thin,
                 dotColor: Colors.grey,
               ),
+              onDotClicked: (index) {
+                _controller.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.ease,
+                );
+              },
             ),
             const SizedBox(height: 40),
             Column(

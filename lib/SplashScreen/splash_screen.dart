@@ -45,12 +45,14 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: SConfig.sHeight * 0.18,
-              width: SConfig.sWidth * 0.40,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(30)),
+              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Image(image: AssetImage("assets/images/Capsules.png"), height: 80)],
+                children: [
+                  Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Image(image: AssetImage("assets/images/Capsules.png"), height: 80),
+                )],
               ),
             ),
             SizedBox(height: SConfig.sHeight * 0.05),
@@ -59,7 +61,9 @@ class _SplashScreenState extends State<SplashScreen> {
             Text("Your Health, Our Priority", style: TextStyle(color: Colors.white, fontSize: 22)),
             SizedBox(height: SConfig.sHeight * 0.05),
             SizedBox(
-              width: SConfig.sWidth * 0.15,
+              width: SConfig.sWidth < 600
+                  ? SConfig.sWidth * 0.15
+                  : SConfig.sWidth * 0.05,
               child: LinearProgressIndicator(
                 color: Colors.white,
                 backgroundColor: Colors.white24,

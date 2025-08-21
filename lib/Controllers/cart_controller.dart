@@ -4,18 +4,23 @@ class CartItem {
   final String name;
   final String company;
   final double price;
-  int quantity;
   final String image;
   final bool requiresPrescription;
+  final String? prescriptionFile;
+  final String? notes;
+  int quantity;
 
   CartItem({
     required this.name,
     required this.company,
     required this.price,
-    this.quantity = 1,
     required this.image,
     this.requiresPrescription = false,
+    this.prescriptionFile,
+    this.notes,
+    this.quantity = 1
   });
+
 
   double get totalPrice => price * quantity;
 }

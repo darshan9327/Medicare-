@@ -4,6 +4,7 @@ import 'package:medicare/CommonScreens/common_container.dart';
 import 'package:medicare/UploadPrescription/upload_prescription.dart';
 import 'package:medicare/WishList/wish_list.dart';
 import '../Controllers/cart_controller.dart';
+import '../Controllers/wishlist_controller.dart';
 import '../DashboardScreen/ShoppingCart/shopping_cart.dart';
 
 class Product1 {
@@ -36,6 +37,7 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   final CartController cartController = Get.put(CartController());
+  final WishlistController wishlistController = Get.put(WishlistController());
   bool isInWishlist = false;
   bool isInCart = false;
 
@@ -103,7 +105,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   text: isInWishlist ? "Remove Wishlist" : "Add to Wishlist",
                   onPressed: () {
                     setState(() {
-                      isInWishlist = !isInWishlist;
+                      if (isInWishlist) {
+                        wishlistController.removeFromWishlist(product);
+                        isInWishlist = false;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("${product.name} removed from wishlist"),
+                          duration: Duration(seconds: 1),
+                          ),
+                        );
+                      } else {
+                        wishlistController.addToWishlist(product);
+                        isInWishlist = true;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("${product.name} added to wishlist"),
+                          duration: Duration(seconds: 1),
+                          ),
+                        );
+                      }
                     });
                   },
                 ),
@@ -130,7 +148,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         );
                       } else {
                         if (product.prescriptionRequired) {
-                          Get.to(() => UploadPrescription());
+                          Get.to(() => UploadPrescription(product: product));
                         } else {
                           cartController.addToCart(
                             CartItem(

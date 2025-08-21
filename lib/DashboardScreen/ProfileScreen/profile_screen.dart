@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicare/CommonScreens/common_container.dart';
 import 'package:medicare/CommonScreens/size_config.dart';
+import 'package:medicare/Help&SupportScreen/help_support_screen.dart';
+import 'package:medicare/MyAddresses/my_addresses.dart';
+import 'package:medicare/MyPrecscription/my_prescription.dart';
 import 'package:medicare/Notifications/notifications.dart';
+import 'package:medicare/ProfileInformationScreen/profile_information.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Authentication/LoginScreen/login_screen.dart';
@@ -41,21 +45,27 @@ class ProfileScreen extends StatelessWidget {
                       text: '👤',
                       title: "Personal Information",
                       subtitle: "Name, Email, Phone",
-                      onTap: (){}
+                      onTap: (){
+                        Get.to(ProfileInformation());
+                      }
                     ),
                     _divider(),
                     _buildProfileOption(
                         text: '📍',
                         title: "My Addresses",
                         subtitle: "Manage delivery addresses",
-                        onTap: (){}
+                        onTap: (){
+                          Get.to(MyAddressesScreen());
+                        }
                     ),
                     _divider(),
                     _buildProfileOption(
                         text: '📋',
                         title: "My Prescriptions",
                         subtitle: "Uploaded prescriptions",
-                        onTap: (){}
+                        onTap: (){
+                          Get.to(MyPrescriptionsScreen());
+                        }
                     ),
                     _divider(),
                     _buildProfileOption(
@@ -69,7 +79,9 @@ class ProfileScreen extends StatelessWidget {
                         text: '❓',
                         title: "Help & Support",
                         subtitle: "FAQs, Contact us",
-                        onTap: (){}
+                        onTap: (){
+                            Get.to(HelpSupportScreen());
+                        }
                     ),
                   ],
                 ),

@@ -1,22 +1,27 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:medicare/CommonScreens/common_container.dart';
-
+import 'package:medicare/DashboardScreen/ShoppingCart/shopping_cart.dart';
 import '../CommonScreens/size_config.dart';
+import '../Controllers/cart_controller.dart';
+import '../ProductDetails/product_details.dart';
 
 class UploadPrescription extends StatefulWidget {
-  const UploadPrescription({super.key});
+  final Product1 product;
+  const UploadPrescription({super.key,
+    required this.product  });
 
   @override
-  State<UploadPrescription> createState() =>
-      _UploadPrescriptionState();
+  State<UploadPrescription> createState() => _UploadPrescriptionState();
 }
 
 class _UploadPrescriptionState extends State<UploadPrescription> {
   String? uploadedFile;
   final TextEditingController notesController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   Future<void> pickFile(String type) async {
     if (type == "Camera") {
@@ -25,8 +30,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
         setState(() => uploadedFile = picked.path);
       }
     } else if (type == "Gallery") {
-      final picked =
-      await ImagePicker().pickImage(source: ImageSource.gallery);
+      final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (picked != null) {
         setState(() => uploadedFile = picked.path);
       }
@@ -37,113 +41,168 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
       );
 
       if (result != null && result.files.single.path != null) {
-        setState(() {
-          uploadedFile = result.files.single.path!;
-        });
+        setState(() => uploadedFile = result.files.single.path!);
       }
     }
   }
 
   void submit() {
-    if (uploadedFile == null) {
+    if (_formKey.currentState!.validate()) {
+      String message = "✅ Uploaded: ${uploadedFile!.split('/').last}";
+
+      if (notesController.text.trim().isNotEmpty) {
+        message += "\n📝 Notes: ${notesController.text.trim()}";
+      }
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please upload a prescription")),
+        SnackBar(
+          content: Text(message),
+          duration: Duration(
+            seconds: 1
+          ),
+          backgroundColor: Colors.green,
+        ),
       );
-      return;
     }
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Uploaded: $uploadedFile\nNotes: ${notesController.text}"),
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final product = widget.product;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Upload Prescription", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: Color(0xff478ef8),
+        title: Text("Upload Prescription - ${product.name}",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        backgroundColor: const Color(0xff478ef8),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.orange[50],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Text(
-                  "This medicine requires a valid prescription. Please upload a clear image of your prescription.",
-                  style: TextStyle(color: Colors.black87),
-                ),
-              ),
-              const SizedBox(height: 20),
-              DottedBorder(
-                borderType: BorderType.RRect,
-                radius: const Radius.circular(12),
-                color: Colors.grey,
-                strokeWidth: 2,
-                dashPattern: const [6, 3],
-                child: Container(
-                  width: SConfig.sWidth,
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.grey.shade100,
-                  ),
-                  padding: EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      SizedBox(height: SConfig.sHeight * 0.020),
-                      Text("📄",style: TextStyle(fontSize: 40)),
-                      SizedBox(height: SConfig.sHeight * 0.020),
-                      const Text(
-                        "Upload Prescription",
-                        style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const Text("  Tap to upload from\ncamera, gallery or PDF",
-                          style: TextStyle(color: Colors.black54)),
-                      SizedBox(height: SConfig.sHeight * 0.020),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _fileButton("Camera", "📷"),
-                          _fileButton("Gallery", "🖼️"),
-                          _fileButton("PDF", "📄"),
-                        ],
-                      ),
-                      if (uploadedFile != null) ...[
-                        const SizedBox(height: 12),
-                        Text(
-                          "Uploaded: $uploadedFile",
-                          style: const TextStyle(
-                              color: Colors.green, fontWeight: FontWeight.bold),
-                        ),
-                      ]
+                    color: Colors.orange[50],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.orange,
+                        offset: Offset(-4, 0)
+                      )
                     ],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    "⚠️ This medicine requires a valid prescription. "
+                        "Please upload a clear image of your prescription.",
+                    style: TextStyle(color: Colors.black87),
                   ),
                 ),
-              ),
-              SizedBox(height: SConfig.sHeight * 0.030),
-              TextField(
-                controller: notesController,
-                maxLines: 3,
-                decoration: InputDecoration(
-                  labelText: "Notes (Optional)",
-                  hintText: "Any additional instructions...",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12)),
+                const SizedBox(height: 20),
+                DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: const Radius.circular(12),
+                  color: Colors.grey,
+                  strokeWidth: 2,
+                  dashPattern: const [6, 3],
+                  child: Container(
+                    width: SConfig.sWidth,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.grey.shade100,
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        const Text("📄", style: TextStyle(fontSize: 40)),
+                        const SizedBox(height: 10),
+                        const Text("Upload Prescription",
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        const Text("Tap to upload from Camera, Gallery or PDF",
+                            style: TextStyle(color: Colors.black54)),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _fileButton("Camera", "📷"),
+                            _fileButton("Gallery", "🖼️"),
+                            _fileButton("PDF", "📄"),
+                          ],
+                        ),
+                        if (uploadedFile == null)
+                          const Padding(
+                            padding: EdgeInsets.only(top: 12),
+                            child: Text(
+                              "⚠️ Please upload a prescription",
+                              style: TextStyle(color: Colors.red, fontSize: 13),
+                            ),
+                          ),
+                        if (uploadedFile != null) ...[
+                          const SizedBox(height: 12),
+                          Text(
+                            "✅ Uploaded: ${uploadedFile!.split('/').last}",
+                            style: const TextStyle(
+                                color: Colors.green, fontWeight: FontWeight.bold),
+                          ),
+                        ]
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(height: SConfig.sHeight * 0.030),
-              CommonContainer(text: "Upload & Add to Cart", onPressed: (){
-              })
-            ],
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: notesController,
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                    labelText: "Notes (Optional)",
+                    hintText: "Any additional instructions...",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+                const SizedBox(height: 30),
+
+                CommonContainer(
+                  text: "Upload & Add to Cart",
+                  onPressed: () {
+                    if (uploadedFile == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("❌ Please upload a prescription"),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+
+                    final cartController = Get.find<CartController>();
+
+                    cartController.addToCart(
+                      CartItem(
+                        name: widget.product.name,
+                        company: widget.product.company,
+                        price: widget.product.price,
+                        image: widget.product.image,
+                        requiresPrescription: widget.product.prescriptionRequired,
+                        prescriptionFile: uploadedFile,
+                        notes: notesController.text,
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("${widget.product.name} added to cart ✅"),
+                      duration: Duration(seconds: 1)),
+                    );
+
+                    Get.off(() => ShoppingCart(showOwnAppBar: true));
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -154,15 +213,17 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
     return OutlinedButton(
       onPressed: () => pickFile(label),
       style: OutlinedButton.styleFrom(
-        side: const BorderSide(color: Colors.blue,width: 1.5),
+        side: const BorderSide(color: Colors.blue, width: 1.5),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(text,style: TextStyle(fontSize: 22),),
-          Text(label, style: const TextStyle(color: Colors.blue,fontSize: 15,fontWeight: FontWeight.w500)),
+          Text(text, style: const TextStyle(fontSize: 22)),
+          Text(label,
+              style: const TextStyle(
+                  color: Colors.blue, fontSize: 15, fontWeight: FontWeight.w500)),
         ],
       ),
     );

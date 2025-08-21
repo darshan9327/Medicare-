@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicare/CommonScreens/size_config.dart';
+import 'package:medicare/DashboardScreen/ProfileScreen/SettingsScreen/setting_screen.dart';
 import 'package:medicare/DashboardScreen/ProfileScreen/profile_screen.dart';
 import 'package:medicare/WishList/wish_list.dart';
 import '../ProductDetails/product_details.dart';
@@ -56,7 +57,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ProfileScreen(),
   ];
 
-  // Titles for each screen
   final List<String> _titles = [
     "MediCare+",
     "Search Results",
@@ -75,9 +75,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }, icon: const Icon(Icons.shopping_cart_outlined,color: Colors.white,)),
       ],
     )],
-    [IconButton(onPressed: () {}, icon: const Icon(Icons.settings))],
     [SizedBox()],
-    [IconButton(onPressed: () {}, icon: const Icon(Icons.settings))],
+    [SizedBox()],
+    [IconButton(onPressed: () {
+      Get.to(SettingsScreen());
+    }, icon: const Icon(Icons.settings))],
   ];
 
   void _onItemTapped(int index) {
@@ -95,7 +97,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xff478ef8),
-        actions: _actions[_selectedIndex], // Change actions dynamically
+        actions: _actions[_selectedIndex],
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -217,7 +219,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             prescriptionRequired: med["prescription"] ?? false,
                           );
 
-                          // Navigate to ProductDetailScreen
                           Get.to(() => ProductDetailScreen(product: product));
                         },
                         leading: Container(

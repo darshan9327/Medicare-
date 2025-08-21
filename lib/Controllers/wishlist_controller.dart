@@ -1,17 +1,14 @@
 import 'package:get/get.dart';
-import '../WishList/wish_list.dart';
+import '../ProductDetails/product_details.dart';
 
 class WishlistController extends GetxController {
-  var wishlist = <Product>[].obs;
+  var wishlist = <Product1>[].obs;
 
-  void addToWishlist(Product product) {
-    // Prevent duplicates
-    if (!wishlist.any((item) => item.name == product.name)) {
-      wishlist.add(product);
-    }
+  void addToWishlist(Product1 product) {
+    wishlist.add(product);
   }
 
-  void removeFromWishlist(Product product) {
+  void removeFromWishlist(Product1 product) {
     wishlist.remove(product);
   }
 }

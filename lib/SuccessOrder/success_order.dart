@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicare/CommonScreens/common_container.dart';
 import 'package:medicare/CommonScreens/size_config.dart';
+import 'package:medicare/DashboardScreen/dashboard.dart';
 import 'package:medicare/MyOrders/my_orders.dart';
 
 class SuccessOrder extends StatefulWidget {
@@ -121,6 +122,7 @@ class _SuccessOrderState extends State<SuccessOrder> {
                           color: Colors.white,
                           color1: Color(0xff478ef8),
                           onPressed: (){
+                            Get.offAll(DashboardScreen());
                           }),
                     ],
                   ),

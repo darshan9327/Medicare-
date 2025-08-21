@@ -81,13 +81,10 @@ class _ProfileInformationState extends State<ProfileInformation> {
               ),
               SizedBox(height: 30),
 
-              // Form Fields
               _buildFormField('Full Name', _nameController, Icons.person_outline),
-              _buildFormField('Email Address', _emailController, Icons.email_outlined),
               _buildFormField('Phone Number', _phoneController, Icons.phone_outlined),
+              _buildFormField('Email Address', _emailController, Icons.email_outlined),
               _buildFormField('Date of Birth', _dobController, Icons.calendar_today_outlined, readOnly: true),
-
-              // Gender Dropdown
               Container(
                 margin: EdgeInsets.only(bottom: 20),
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
