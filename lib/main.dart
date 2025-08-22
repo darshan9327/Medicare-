@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'CommonScreens/size_config.dart';
-import 'Features/Presentation/Screen/SplashScreen/splash_screen.dart';
+import 'Features/Presentation/Common/utils/size_config.dart';
+import 'Features/Presentation/Splash/pages/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
