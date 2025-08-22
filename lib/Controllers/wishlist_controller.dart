@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../ProductDetails/product_details.dart';
+import '../Features/Presentation/Screen/ProductDetails/product_details.dart';
 
 class WishlistController extends GetxController {
   var wishlist = <Product1>[].obs;
