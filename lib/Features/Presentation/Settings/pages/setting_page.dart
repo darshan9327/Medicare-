@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
 import '../../Help_Support/pages/help_support_page.dart';
 import '../../Profile/pages/profile_information_page.dart';
-
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {

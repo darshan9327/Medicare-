@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../Cart/controllers/cart_controller.dart';
-import '../../Cart/pages/shopping_cart_page.dart';
-import '../../Common/utils/size_config.dart';
-import '../../Common/widgets/common_container.dart';
-import '../../Prescription/pages/upload_prescription_page.dart';
-import '../../Product/pages/product_details_page.dart';
-import '../controllers/wishlist_controller.dart';
+import '../Features/Presentation/Cart/controllers/cart_controller.dart';
+import '../Features/Presentation/Cart/pages/shopping_cart_page.dart';
+import '../Features/Presentation/Product/pages/product_details_page.dart';
+import '../Features/Presentation/Common/utils/size_config.dart';
+import '../Features/Presentation/Common/widgets/common_container.dart';
+import '../Features/Presentation/Prescription/pages/upload_prescription_page.dart';
+import '../Features/Presentation/Wishlist/controllers/wishlist_controller.dart';
 
 class Wishlist extends StatelessWidget {
   Wishlist({super.key});

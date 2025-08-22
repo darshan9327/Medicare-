@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Common/utils/size_config.dart';
+import '../../Common/utils/common_appbar.dart';
 import '../../Common/widgets/common_container.dart';
-import '../../Common/widgets/common_text_form_field.dart';
+import '../widgets/checkout_widget/address_tile.dart';
+import '../widgets/checkout_widget/coupon_field.dart';
+import '../widgets/checkout_widget/order_summary.dart';
+import '../widgets/checkout_widget/payment_method_tile.dart';
 import 'secure_payment_page.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -19,14 +22,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   ];
 
   double? finalAmount;
-
-  @override
-  void initState() {
-    super.initState();
-    finalAmount = widget.totalAmount;
-  }
-
   int selectedAddressIndex = 0;
+  int selectedPaymentIndex = 0;
+
+  final TextEditingController couponController = TextEditingController();
 
   List<Map<String, String>> paymentMethods = [
     {"name": "UPI", "emoji": "💳"},
@@ -35,17 +34,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     {"name": "COD", "emoji": "💵"},
   ];
 
-  int selectedPaymentIndex = 0;
-
-  final TextEditingController couponController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    finalAmount = widget.totalAmount;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Checkout", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: Color(0xff478ef8),
-      ),
+      appBar: CommonAppBar(title: "Checkout"),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: SingleChildScrollView(
@@ -55,93 +53,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               const Text("Delivery Address", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
               const SizedBox(height: 10),
               ...List.generate(addresses.length, (index) {
-                return GestureDetector(
-                  onTap: () {
+                return AddressTile(
+                  address: addresses[index],
+                  isSelected: selectedAddressIndex == index,
+                  onSelect: () {
+                    setState(() => selectedAddressIndex = index);
+                  },
+                  onEdit: (updated) {
+                    setState(() => addresses[index] = updated);
+                  },
+                  onDelete: () {
                     setState(() {
-                      selectedAddressIndex = index;
+                      addresses.removeAt(index);
+                      if (selectedAddressIndex >= addresses.length) {
+                        selectedAddressIndex = addresses.isEmpty ? 0 : addresses.length - 1;
+                      }
                     });
                   },
-                  child: Container(
-                    width: SConfig.sWidth,
-                    margin: const EdgeInsets.only(bottom: 10),
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: selectedAddressIndex == index ? Colors.blue.shade50 : Colors.transparent,
-                      border: Border.all(color: selectedAddressIndex == index ? Colors.blue : Colors.grey.shade300, width: 2),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text("🏠 ${addresses[index]["type"]}", style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue)),
-                            Spacer(),
-                            InkWell(
-                              onTap: () async {
-                                final updatedAddress = await showDialog<Map<String, String>>(
-                                  context: context,
-                                  builder: (context) {
-                                    final typeController = TextEditingController(text: addresses[index]["type"] ?? "");
-                                    final nameController = TextEditingController(text: addresses[index]["name"] ?? "");
-                                    final addressController = TextEditingController(text: addresses[index]["address"] ?? "");
-                                    final phoneController = TextEditingController(text: addresses[index]["phone"] ?? "");
-
-                                    return AlertDialog(
-                                      title: const Text("Edit Address"),
-                                      content: SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            TextField(controller: typeController, decoration: const InputDecoration(labelText: "Type")),
-                                            TextField(controller: nameController, decoration: const InputDecoration(labelText: "Name")),
-                                            TextField(controller: addressController, decoration: const InputDecoration(labelText: "Address")),
-                                            TextField(controller: phoneController, decoration: const InputDecoration(labelText: "Phone")),
-                                          ],
-                                        ),
-                                      ),
-                                      actions: [
-                                        TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context, {
-                                              "type": typeController.text,
-                                              "name": nameController.text,
-                                              "address": addressController.text,
-                                              "phone": phoneController.text,
-                                            });
-                                          },
-                                          child: const Text("Save"),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-
-                                if (updatedAddress != null) {
-                                  setState(() {
-                                    addresses[index] = updatedAddress;
-                                  });
-                                }
-                              },
-                              child: const Icon(Icons.edit, size: 20),
-                            ),
-                            SizedBox(width: SConfig.sWidth * 0.010),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  addresses.removeAt(index);
-                                });
-                              },
-                              child: Icon(Icons.delete_forever_outlined, size: 20),
-                            ),
-                          ],
-                        ),
-                        Text(addresses[index]["name"]!),
-                        Text(addresses[index]["address"]!),
-                        Text(addresses[index]["phone"]!),
-                      ],
-                    ),
-                  ),
                 );
               }),
               CommonContainer(
@@ -154,6 +82,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   });
                 },
               ),
+
               const SizedBox(height: 20),
               const Text("Payment Method", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
               const SizedBox(height: 10),
@@ -162,74 +91,37 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: paymentMethods.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.9,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
+                    crossAxisCount: 2, childAspectRatio: 1.9, crossAxisSpacing: 20, mainAxisSpacing: 20),
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedPaymentIndex = index;
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: selectedPaymentIndex == index ? Colors.blue.shade50 : Colors.transparent,
-                        border: Border.all(
-                          color: selectedPaymentIndex == index ? Colors.blue : Colors.grey.shade300,
-                          width: selectedPaymentIndex == index ? 2 : 1.5,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(paymentMethods[index]["emoji"]!, style: const TextStyle(fontSize: 22)),
-                          const SizedBox(width: 8),
-                          Text(paymentMethods[index]["name"]!, style: const TextStyle(fontSize: 16)),
-                        ],
-                      ),
-                    ),
+                  return PaymentMethodTile(
+                    method: paymentMethods[index],
+                    isSelected: selectedPaymentIndex == index,
+                    onSelect: () => setState(() => selectedPaymentIndex = index),
                   );
                 },
               ),
+
               const SizedBox(height: 20),
-              const Text("Apply Coupon", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  SizedBox(width: SConfig.sWidth * 0.700, child: CommonTextFormField(controller: couponController, hintText: "Enter coupon code")),
-                  const SizedBox(width: 10),
-                  CommonContainer(
-                    text: "Apply",
-                    color: Colors.white,
-                    color1: Colors.blue,
-                    onPressed: () {
-                      if (couponController.text == "DISCOUNT10") {
-                        setState(() {
-                          finalAmount = widget.totalAmount - 20;
-                        });
-                      }
-                    },
-                  ),
-                ],
+              CouponField(
+                controller: couponController,
+                onApply: () {
+                  if (couponController.text.trim().toUpperCase() == "DISCOUNT10") {
+                    setState(() {
+                      finalAmount = widget.totalAmount * 0.9; // 10% off
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("10% Discount Applied")),
+                    );
+                  }
+                },
               ),
+
               const SizedBox(height: 20),
-              Center(
-                child: Column(
-                  children: [
-                    Text("Total Amount  ₹${finalAmount!.toStringAsFixed(2)}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                    SizedBox(height: SConfig.sHeight * 0.040),
-                    CommonContainer(
-                      text: "Place Order",
-                      onPressed: () {
-                        Get.offAll(SecurePayment(totalAmount: finalAmount!));
-                      },
-                    ),
-                  ],
-                ),
+              OrderSummary(
+                finalAmount: finalAmount ?? widget.totalAmount,
+                onPlaceOrder: () {
+                  Get.offAll(SecurePayment(totalAmount: finalAmount ?? widget.totalAmount));
+                },
               ),
             ],
           ),

@@ -5,7 +5,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Common/utils/size_config.dart';
 import '../../Common/widgets/common_container.dart';
 import '../../Dashboard/pages/dashboard_page.dart';
-import 'login_signup_page.dart';
+import '../../Auth/pages/login_signup_page.dart';
+import '../widgets/onboarding_item.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -58,15 +59,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
                 itemBuilder: (context, index) {
                   final data = onboardingData[index];
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(data["emoji"]!, style: const TextStyle(fontSize: 100)),
-                      const SizedBox(height: 40),
-                      Text(data["title"]!, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
-                      const SizedBox(height: 20),
-                      Text(data["subtitle"]!, style: const TextStyle(fontSize: 16, color: Colors.grey), textAlign: TextAlign.center),
-                    ],
+                  return OnboardingItem(
+                    emoji: data["emoji"]!,
+                    title: data["title"]!,
+                    subtitle: data["subtitle"]!,
                   );
                 },
               ),
@@ -75,7 +71,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             SmoothPageIndicator(
               controller: _controller,
               count: onboardingData.length,
-              effect: const WormEffect(activeDotColor: Colors.blue, dotHeight: 10, dotWidth: 10, type: WormType.thin, dotColor: Colors.grey),
+              effect: const WormEffect(
+                activeDotColor: Colors.blue,
+                dotHeight: 10,
+                dotWidth: 10,
+                type: WormType.thin,
+                dotColor: Colors.grey,
+              ),
               onDotClicked: (index) {
                 _controller.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.ease);
               },
@@ -94,7 +96,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   text: isLastPage ? "Get Started" : "Next",
                 ),
                 SizedBox(height: SConfig.sHeight * 0.030),
-                CommonContainer(color: Colors.grey.shade100, color1: Colors.grey.shade500, onPressed: _finishOnboarding, text: "Skip"),
+                CommonContainer(
+                  color: Colors.grey.shade100,
+                  color1: Colors.grey.shade500,
+                  onPressed: _finishOnboarding,
+                  text: "Skip",
+                ),
               ],
             ),
             const SizedBox(height: 20),

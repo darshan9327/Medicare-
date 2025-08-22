@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../Auth/pages/login_signup_page.dart';
 import '../../Auth/pages/onboarding_page.dart';
 import '../../Common/utils/size_config.dart';

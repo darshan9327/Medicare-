@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medicare/Features/Presentation/Profile/pages/profile_information_page.dart';
+import 'package:medicare/Features/Presentation/Addresses/pages/my_addresses_page.dart';
+import 'package:medicare/ExtraScreens/profile_information_page1.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../Addresses/pages/my_addresses_page.dart';
-import '../../Auth/pages/login_signup_page.dart';
-import '../../Common/utils/size_config.dart';
-import '../../Common/widgets/common_container.dart';
-import '../../Help_Support/pages/help_support_page.dart';
-import '../../Prescription/pages/my_prescription_page.dart';
-import '../../Notification/pages/notifications_page.dart';
+import 'login_signup_page1.dart';
+import '../Features/Presentation/Common/utils/size_config.dart';
+import '../Features/Presentation/Common/widgets/common_container.dart';
+import '../Features/Presentation/Help_Support/pages/help_support_page.dart';
+import '../Features/Presentation/Notification/pages/notification_page.dart';
+import '../Features/Presentation/Prescription/pages/my_prescription_page.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
                       title: "Personal Information",
                       subtitle: "Name, Email, Phone",
                       onTap: () {
-                        Get.to(ProfileInformation());
+                        Get.to(ProfileInformation1());
                       },
                     ),
                     _divider(),
@@ -72,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                       title: "Notifications",
                       subtitle: "Manage preferences",
                       onTap: () {
-                        Get.to(NotificationsScreen());
+                        Get.to(NotificationsPage());
                       },
                     ),
                     _divider(),
@@ -96,7 +96,7 @@ class ProfileScreen extends StatelessWidget {
                   final prefs = await SharedPreferences.getInstance();
                   await prefs.clear();
 
-                  Get.offAll(() => LoginSignupScreen());
+                  Get.offAll(() => LoginSignupScreen1());
                 },
               ),
             ],

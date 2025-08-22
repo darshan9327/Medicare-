@@ -46,6 +46,11 @@ class CartController extends GetxController {
     cartItems.refresh();
   }
 
+  void removeFromCartByName(String name) {
+    cartItems.removeWhere((item) => item.name == name);
+    update();
+  }
+
   void decreaseQuantity(CartItem item) {
     if (item.quantity > 1) {
       item.quantity--;
