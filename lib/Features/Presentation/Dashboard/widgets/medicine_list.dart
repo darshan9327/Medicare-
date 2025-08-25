@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Common/utils/size_config.dart';
 import '../../Product/pages/product_details_page.dart';
-import '../../../../ExtraScreens/product_details_page1.dart';
 
 final List<Map<String, dynamic>> medicines = [
   {

@@ -28,7 +28,10 @@ class _SuccessOrderState extends State<SuccessOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CommonAppBar(title: "Order Confirmed"),
+      appBar: const CommonAppBar(
+        title: "Order Confirmed",
+        leading: false,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(

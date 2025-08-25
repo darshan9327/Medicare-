@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medicare/ExtraScreens/product_details_page1.dart';
 import 'package:medicare/Features/Presentation/Common/utils/common_appbar.dart';
 import '../../Cart/controllers/cart_controller.dart';
 import '../../Cart/pages/shopping_cart_page.dart';

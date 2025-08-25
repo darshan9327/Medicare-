@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:medicare/Features/Presentation/Common/utils/common_appbar.dart';
 import '../../Common/utils/size_config.dart';
 import '../widgets/secure_payment_widget/payment_amount.dart';
@@ -19,15 +21,12 @@ class _SecurePaymentState extends State<SecurePayment> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => SuccessOrder(
+      Get.offAll(
+        SuccessOrder(
             orderId: "ORD${DateTime.now().millisecondsSinceEpoch}",
             amount: widget.totalAmount,
             paymentStatus: "Completed",
             orderStatus: "Order Placed",
-          ),
         ),
       );
     });
