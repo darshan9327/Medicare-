@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:medicare/Features/Presentation/Common/utils/common_appbar.dart';
 import '../widgets/address_list.dart';
-import '../widgets/add_address_bottomsheet.dart';
+import '../widgets/add_address_bottom_sheet.dart';
 
 class MyAddressesScreen extends StatefulWidget {
+  const MyAddressesScreen({super.key});
+
   @override
-  _MyAddressesScreenState createState() => _MyAddressesScreenState();
+  State<MyAddressesScreen> createState() => _MyAddressesScreenState();
 }
 
 class _MyAddressesScreenState extends State<MyAddressesScreen> {
@@ -70,12 +72,8 @@ class _MyAddressesScreenState extends State<MyAddressesScreen> {
       appBar: CommonAppBar(
         title: 'My Addresses',
         actions: [
-          IconButton(
-            onPressed: () =>
-                showAddAddressBottomSheet(context, onSave: _addAddress),
-            icon: const Icon(Icons.add),
-          )
-        ],
+          IconButton(onPressed: () => showAddAddressBottomSheet(context, onSave: _addAddress),
+            icon: const Icon(Icons.add))],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),

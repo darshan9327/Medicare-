@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:medicare/Features/Presentation/Common/utils/common_appbar.dart';
 import '../../Cart/controllers/cart_controller.dart';
 import '../../Cart/pages/shopping_cart_page.dart';
 import '../../Common/utils/size_config.dart';
@@ -59,10 +60,7 @@ class _UploadPrescriptionState extends State<UploadPrescription> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text("Upload Prescription - ${product.name}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xff478ef8),
-      ),
+      appBar: CommonAppBar(title: "Upload Prescription - ${product.name}"),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(

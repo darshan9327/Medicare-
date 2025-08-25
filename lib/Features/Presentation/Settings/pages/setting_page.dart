@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../Common/utils/common_appbar.dart';
 import '../../Help_Support/pages/help_support_page.dart';
 import '../../Profile/pages/profile_information_page.dart';
 class SettingsScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F7FA),
-      appBar: AppBar(title: Text('Settings'), backgroundColor: Color(0xff478ef8), foregroundColor: Colors.white, elevation: 0),
+      appBar: CommonAppBar(title: "Settings"),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
         child: Column(

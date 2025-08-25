@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicare/Features/Presentation/Common/utils/common_appbar.dart';
 import '../widgets/faq_list.dart';
 import '../widgets/quick_actions.dart';
 import '../widgets/contact_info.dart';
@@ -35,12 +36,7 @@ class HelpSupportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
-      appBar: AppBar(
-        title: const Text('Help & Support'),
-        backgroundColor: const Color(0xff478ef8),
-        foregroundColor: Colors.white,
-        elevation: 0,
-      ),
+      appBar: CommonAppBar(title: 'Help & Support'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(

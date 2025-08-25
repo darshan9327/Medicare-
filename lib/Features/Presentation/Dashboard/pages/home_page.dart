@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../Common/utils/size_config.dart';
 import '../widgets/category_grid.dart';
 import '../widgets/medicine_list.dart';
 import '../widgets/search_bar.dart';

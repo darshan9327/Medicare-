@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicare/Features/Presentation/Common/utils/common_appbar.dart';
 import '../widgets/ProfileInformationWidget/emergency_contact_card.dart';
 import '../widgets/ProfileInformationWidget/profile_avatar.dart';
 import '../widgets/ProfileInformationWidget/profile_dropdown.dart';
@@ -35,10 +36,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text("Personal Information",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xff478ef8),
+      appBar: CommonAppBar(
+        title: "Personal Information",
         actions: [
           TextButton(
             onPressed: () {

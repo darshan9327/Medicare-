@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medicare/Features/Presentation/Common/utils/common_appbar.dart';
 import '../widgets/message_bubble.dart';
 import '../widgets/attachment_sheet.dart';
 
@@ -41,11 +42,7 @@ class _LiveChatScreenState extends State<LiveChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
-      appBar: AppBar(
-        title: const Text("Live Chat"),
-        backgroundColor: const Color(0xFF2563EB),
-        foregroundColor: Colors.white,
-      ),
+      appBar: CommonAppBar(title: "Live Chat"),
       body: Column(
         children: [
           Expanded(
