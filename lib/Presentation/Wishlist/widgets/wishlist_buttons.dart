@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../Cart/controllers/cart_controller.dart';
 import '../../Common/widgets/common_container.dart';
+import '../../Prescription/pages/upload_prescription_page.dart';
 import '../../Product/pages/product_details_page.dart';
 import '../controllers/wishlist_controller.dart';
 
@@ -28,18 +29,22 @@ class WishlistButtons extends StatelessWidget {
         CommonContainer(
           text: "Add to Cart",
           onPressed: () {
-            cartController.addToCart(
-                CartItem(
-                  name: product.name,
-                  company: product.company,
-                  price: product.price,
-                  image: product.image,
-                  requiresPrescription: product.prescriptionRequired,
-                )
-            );
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("${product.name} added to cart")),
-            );
+            if (product.prescriptionRequired) {
+              Get.to(() => UploadPrescription(product: product,));
+            } else {
+              cartController.addToCart(
+                  CartItem(
+                    name: product.name,
+                    company: product.company,
+                    price: product.price,
+                    image: product.image,
+                    requiresPrescription: product.prescriptionRequired,
+                  )
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("${product.name} added to cart")),
+              );
+            }
           }
         ),
       ],

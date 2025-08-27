@@ -50,17 +50,27 @@ class MedicineList extends StatelessWidget {
               );
               Get.to(() => ProductDetailPage(product: product));
             },
-            leading: Container(
-              height: SConfig.sHeight * 0.075,
-              width: SConfig.sWidth * 0.160,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.shade100,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Text(med["emoji"], style: const TextStyle(fontSize: 35)),
-              ),
+            leading: LayoutBuilder(
+              builder: (context, constraints) {
+                double containerSize = SConfig.sWidth > 800 ? 70 : 50;
+
+                return Container(
+                  height: containerSize,
+                  width: containerSize,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.grey.shade100,
+                  ),
+                  child: Center(
+                    child: Text(
+                      med["emoji"],
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width > 800 ? 30 : 30,
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
             title: Text(med["name"], style: const TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Column(

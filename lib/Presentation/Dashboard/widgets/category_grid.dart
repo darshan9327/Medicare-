@@ -12,14 +12,26 @@ class CategoryGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    // ✅ Adjust columns based on screen size
+    int crossAxisCount;
+    if (screenWidth > 1200) {
+      crossAxisCount = 6; // Desktop / Laptop large screen
+    } else if (screenWidth > 800) {
+      crossAxisCount = 4; // Tablet / small laptop
+    } else {
+      crossAxisCount = 2; // Mobile
+    }
+
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
         mainAxisSpacing: 15,
         crossAxisSpacing: 25,
-        childAspectRatio: 1.2,
+        childAspectRatio: 1, // square tiles
       ),
       itemCount: categories.length,
       itemBuilder: (context, index) {
@@ -28,14 +40,23 @@ class CategoryGrid extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: Colors.white,
-            boxShadow: [BoxShadow(color: Colors.grey.shade200, blurRadius: 6, spreadRadius: 2)],
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.shade200,
+                blurRadius: 6,
+                spreadRadius: 2,
+              )
+            ],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(item["emoji"], style: const TextStyle(fontSize: 40)),
               const SizedBox(height: 8),
-              Text(item["name"], style: const TextStyle(fontWeight: FontWeight.w600)),
+              Text(
+                item["name"],
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
             ],
           ),
         );

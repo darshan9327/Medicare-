@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../Common/utils/size_config.dart';
 import '../../Product/pages/product_details_page.dart';
 import '../pages/search_page.dart';
 
@@ -11,6 +12,7 @@ class SearchResultTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double containerSize = SConfig.sWidth > 800 ? 70 : 50;
     return InkWell(
       onTap: () {
         Get.to(
@@ -33,13 +35,16 @@ class SearchResultTile extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         child: ListTile(
           leading: Container(
+            height: containerSize,
+            width: containerSize,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey.shade100,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(7),
-              child: Text("💊", style: TextStyle(fontSize: 30)),
+            child: Center(
+                child: Text("💊", style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width > 800 ? 30 : 30)
+                )
             ),
           ),
           title: Text(medicine.name,

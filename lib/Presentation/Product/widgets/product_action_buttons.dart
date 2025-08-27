@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medicare/Presentation/Cart/pages/shopping_cart_page.dart';
 
 import '../../Cart/controllers/cart_controller.dart';
 import '../../Common/widgets/common_container.dart';
@@ -47,6 +48,7 @@ class ProductActionButtons extends StatelessWidget {
             } else {
               wishlistController.addToWishlist(product);
               onWishlistToggle(true);
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("${product.name} added to wishlist"),
@@ -81,6 +83,7 @@ class ProductActionButtons extends StatelessWidget {
                   ),
                 );
                 onCartToggle(true);
+                Get.to(ShoppingCart(showOwnAppBar: true,));
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text("${product.name} added to cart"),
                   duration: Duration(seconds: 1),),
