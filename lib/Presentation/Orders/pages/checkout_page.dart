@@ -18,6 +18,7 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
+
   List<Map<String, String>> addresses = [
     {"type": "Home", "name": "John Doe", "address": "123 Main Street, Apartment 4B Ahmedabad, Gujarat 380001", "phone": "+91 98765 43210"},
   ];
@@ -43,6 +44,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    int crossAxisCount;
+    if (screenWidth > 1200) {
+      crossAxisCount = 6; // Desktop / Laptop large screen
+    } else if (screenWidth > 800) {
+      crossAxisCount = 4; // Tablet / small laptop
+    } else {
+      crossAxisCount = 2; // Mobile
+    }
     return Scaffold(
       appBar: CommonAppBar(title: "Checkout"),
       body: Padding(
@@ -91,8 +102,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: paymentMethods.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, childAspectRatio: 1.9, crossAxisSpacing: 20, mainAxisSpacing: 20),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 1.9, crossAxisSpacing: 20, mainAxisSpacing: 20,
+                crossAxisCount: crossAxisCount),
                 itemBuilder: (context, index) {
                   return PaymentMethodTile(
                     method: paymentMethods[index],
@@ -101,7 +112,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   );
                 },
               ),
-
               const SizedBox(height: 20),
               CouponField(
                 controller: couponController,

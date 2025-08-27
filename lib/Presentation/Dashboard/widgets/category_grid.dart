@@ -14,7 +14,6 @@ class CategoryGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    // ✅ Adjust columns based on screen size
     int crossAxisCount;
     if (screenWidth > 1200) {
       crossAxisCount = 6; // Desktop / Laptop large screen

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Presentation/Common/utils/size_config.dart';
 import 'Presentation/Splash/pages/splash_page.dart';
-
-void main(){
+void main() {
   runApp(const MyApp());
 }
 
