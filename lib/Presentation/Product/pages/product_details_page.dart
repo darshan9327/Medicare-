@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../Cart/controllers/cart_controller.dart';
 import '../../Cart/pages/shopping_cart_page.dart';
 import '../../Common/utils/common_appbar.dart';
+import '../../Common/utils/size_config.dart';
 import '../../Wishlist/controllers/wishlist_controller.dart';
 import '../../Wishlist/pages/wish_list_page1.dart';
 import '../widgets/product_action_buttons.dart';
@@ -39,7 +40,7 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
-  final cartController = Get.put(CartController());
+  final cartController = Get.find<CartController>();
   final wishlistController = Get.put(WishlistController());
 
   bool isInWishlist = false;
@@ -58,11 +59,48 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             },
             icon: const Icon(Icons.favorite, color: Colors.red),
           ),
-          IconButton(
-            onPressed: () {
-              Get.to(ShoppingCart(showOwnAppBar: true));
-            },
-            icon: const Icon(Icons.shopping_cart, color: Colors.white),
+          Stack(
+            children: [
+              SizedBox(
+                height: SConfig.sHeight,
+                child: IconButton(
+                  onPressed: () {
+                    Get.to(() => ShoppingCart(showOwnAppBar: true));
+                  },
+                  icon: const Icon(Icons.shopping_cart,
+                      color: Colors.white, size: 28),
+                ),
+              ),
+              Positioned(
+                right: 6,
+                top: 6,
+                child: Obx(() {
+                  final count = cartController.cartItems.length;
+                  return count > 0
+                      ? Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 18,
+                      minHeight: 18,
+                    ),
+                    child: Text(
+                      "$count",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                      : const SizedBox();
+                }),
+              ),
+            ],
           ),
         ],
       ),

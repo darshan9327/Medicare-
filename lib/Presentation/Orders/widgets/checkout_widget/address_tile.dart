@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../Common/utils/size_config.dart';
+import 'address_dailog.dart';
 
 class AddressTile extends StatelessWidget {
   final Map<String, String> address;
@@ -40,11 +41,15 @@ class AddressTile extends StatelessWidget {
                 const Spacer(),
                 InkWell(
                   onTap: () async {
-                    final updated = await _editDialog(context, address);
+                    final updated = await showDialog<Map<String, String>>(
+                      context: context,
+                      builder: (context) => AddressDialog(initialData: address),
+                    );
                     if (updated != null) onEdit(updated);
                   },
                   child: const Icon(Icons.edit, size: 20),
                 ),
+
                 SizedBox(width: SConfig.sWidth * 0.010),
                 InkWell(onTap: onDelete, child: const Icon(Icons.delete_forever_outlined, size: 20)),
               ],
@@ -54,42 +59,6 @@ class AddressTile extends StatelessWidget {
             Text(address["phone"] ?? ""),
           ],
         ),
-      ),
-    );
-  }
-
-  Future<Map<String, String>?> _editDialog(BuildContext context, Map<String, String> address) {
-    final typeController = TextEditingController(text: address["type"]);
-    final nameController = TextEditingController(text: address["name"]);
-    final addressController = TextEditingController(text: address["address"]);
-    final phoneController = TextEditingController(text: address["phone"]);
-
-    return showDialog<Map<String, String>>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Edit Address"),
-        content: SingleChildScrollView(
-          child: Column(
-            children: [
-              TextField(controller: typeController, decoration: const InputDecoration(labelText: "Type")),
-              TextField(controller: nameController, decoration: const InputDecoration(labelText: "Name")),
-              TextField(controller: addressController, decoration: const InputDecoration(labelText: "Address")),
-              TextField(controller: phoneController, decoration: const InputDecoration(labelText: "Phone")),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context, {
-              "type": typeController.text,
-              "name": nameController.text,
-              "address": addressController.text,
-              "phone": phoneController.text,
-            }),
-            child: const Text("Save"),
-          ),
-        ],
       ),
     );
   }

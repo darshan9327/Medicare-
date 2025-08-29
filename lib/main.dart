@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'Presentation/Cart/controllers/cart_controller.dart';
 import 'Presentation/Common/utils/size_config.dart';
 import 'Presentation/Splash/pages/splash_page.dart';
 void main() {
@@ -11,6 +12,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    Get.put(CartController(), permanent: true);
     SConfig.init(context);
     return GetMaterialApp(
       title: 'Medicare+',

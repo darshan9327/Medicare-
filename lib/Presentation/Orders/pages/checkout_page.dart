@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../Common/utils/common_appbar.dart';
 import '../../Common/widgets/common_container.dart';
+import '../widgets/checkout_widget/address_dailog.dart';
 import '../widgets/checkout_widget/address_tile.dart';
 import '../widgets/checkout_widget/coupon_field.dart';
 import '../widgets/checkout_widget/order_summary.dart';
@@ -26,7 +27,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   double? finalAmount;
   int selectedAddressIndex = 0;
   int selectedPaymentIndex = 0;
-
+ 
   final TextEditingController couponController = TextEditingController();
 
   List<Map<String, String>> paymentMethods = [
@@ -48,11 +49,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
     int crossAxisCount;
     if (screenWidth > 1200) {
-      crossAxisCount = 6; // Desktop / Laptop large screen
+      crossAxisCount = 6;
     } else if (screenWidth > 800) {
-      crossAxisCount = 4; // Tablet / small laptop
+      crossAxisCount = 4;
     } else {
-      crossAxisCount = 2; // Mobile
+      crossAxisCount = 2;
     }
     return Scaffold(
       appBar: CommonAppBar(title: "Checkout"),
@@ -88,10 +89,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 text: "Add New Address",
                 color: Colors.white,
                 color1: Colors.blue,
-                onPressed: () {
-                  setState(() {
-                    addresses.add({"type": "New", "name": "New User", "address": "New Flat, New City", "phone": "+91 99999 88888"});
-                  });
+                onPressed: () async {
+                  final newAddress = await showDialog<Map<String, String>>(
+                    context: context,
+                    builder: (context) => const AddressDialog(),
+                  );
+                  if (newAddress != null) {
+                    setState(() {
+                      addresses.add(newAddress);
+                      selectedAddressIndex = addresses.length - 1;
+                    });
+                  }
                 },
               ),
 
@@ -102,8 +110,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: paymentMethods.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 1.9, crossAxisSpacing: 20, mainAxisSpacing: 20,
-                crossAxisCount: crossAxisCount),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1.9,
+                    crossAxisSpacing: 20, mainAxisSpacing: 20,
+                    crossAxisCount: crossAxisCount),
                 itemBuilder: (context, index) {
                   return PaymentMethodTile(
                     method: paymentMethods[index],
@@ -126,7 +136,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   }
                 },
               ),
-
               const SizedBox(height: 20),
               OrderSummary(
                 finalAmount: finalAmount ?? widget.totalAmount,

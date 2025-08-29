@@ -18,7 +18,7 @@ class ShoppingCart extends StatefulWidget {
 }
 
 class _ShoppingCartState extends State<ShoppingCart> {
-  final cartController = Get.put(CartController());
+  final cartController = Get.find<CartController>();
 
   final double deliveryFee = 25.0;
   final double taxPercent = 0.115;

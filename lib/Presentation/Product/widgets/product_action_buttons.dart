@@ -83,7 +83,6 @@ class ProductActionButtons extends StatelessWidget {
                   ),
                 );
                 onCartToggle(true);
-                Get.to(ShoppingCart(showOwnAppBar: true,));
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text("${product.name} added to cart"),
                   duration: Duration(seconds: 1),),

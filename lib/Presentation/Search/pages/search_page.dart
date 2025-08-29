@@ -85,56 +85,59 @@ class _SearchScreenState extends State<SearchScreen> {
       return matchesSearch && matchesFilter;
     }).toList();
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SearchBarWidget(
-              onChanged: (value) {
-                setState(() {
-                  searchQuery = value;
-                });
-              },
-            ),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                FilterButton(
-                  label: "All",
-                  selected: filter == "All",
-                  onTap: () => setState(() => filter = "All"),
-                ),
-                const SizedBox(width: 8),
-                FilterButton(
-                  label: "OTC",
-                  selected: filter == "OTC",
-                  onTap: () => setState(() => filter = "OTC"),
-                ),
-                const SizedBox(width: 8),
-                FilterButton(
-                  label: "Prescription",
-                  selected: filter == "Prescription",
-                  onTap: () => setState(() => filter = "Prescription"),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text("${filteredList.length} results found",
-                style: const TextStyle(color: Colors.grey)),
-            const SizedBox(height: 12),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredList.length,
-                itemBuilder: (context, index) {
-                  final med = filteredList[index];
-                  return SearchResultTile(medicine: med);
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SearchBarWidget(
+                onChanged: (value) {
+                  setState(() {
+                    searchQuery = value;
+                  });
                 },
               ),
-            ),
-          ],
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  FilterButton(
+                    label: "All",
+                    selected: filter == "All",
+                    onTap: () => setState(() => filter = "All"),
+                  ),
+                  const SizedBox(width: 8),
+                  FilterButton(
+                    label: "OTC",
+                    selected: filter == "OTC",
+                    onTap: () => setState(() => filter = "OTC"),
+                  ),
+                  const SizedBox(width: 8),
+                  FilterButton(
+                    label: "Prescription",
+                    selected: filter == "Prescription",
+                    onTap: () => setState(() => filter = "Prescription"),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text("${filteredList.length} results found",
+                  style: const TextStyle(color: Colors.grey)),
+              const SizedBox(height: 12),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: filteredList.length,
+                  itemBuilder: (context, index) {
+                    final med = filteredList[index];
+                    return SearchResultTile(medicine: med);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
