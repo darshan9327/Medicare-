@@ -33,7 +33,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final isLoggedIn = prefs.getBool("isLoggedIn") ?? false;
 
     if (isLoggedIn) {
-      // Get.offAll(() => const DashboardScreen());
+      Get.offAll(() => const DashboardScreen());
     } else {
       Get.offAll(() => const LoginSignupScreen());
     }

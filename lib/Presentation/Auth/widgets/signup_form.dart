@@ -87,7 +87,7 @@ class _SignupFormState extends State<SignupForm> {
               if (_signupFormKey.currentState!.validate()) {
                 final messenger = ScaffoldMessenger.of(context);
                 await _saveLoginStatus();
-                // Get.offAll(() => DashboardScreen());
+                Get.offAll(() => DashboardScreen());
 
                 messenger.showSnackBar(const SnackBar(content: Text("Signup successful")));
               }

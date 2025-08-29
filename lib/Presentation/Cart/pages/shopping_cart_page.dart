@@ -76,7 +76,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
                           duration: Duration(seconds: 2));
                     }
                     else {
-                      // Get.to(CheckoutScreen(totalAmount: total));
+                      Get.to(CheckoutScreen(totalAmount: total));
                     }
                   },
                 ),
