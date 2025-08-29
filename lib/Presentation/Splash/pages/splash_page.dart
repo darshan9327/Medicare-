@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (!isOnboarded) {
       Get.offAll(() => const OnboardingScreen());
     } else if (isLoggedIn) {
-      Get.offAll(() => const DashboardScreen());
+      // Get.offAll(() => const DashboardScreen());
     } else {
       Get.offAll(() => const LoginSignupScreen());
     }

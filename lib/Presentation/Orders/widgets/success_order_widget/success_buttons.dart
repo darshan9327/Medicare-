@@ -24,7 +24,7 @@ class SuccessButtons extends StatelessWidget {
           color: Colors.white,
           color1: const Color(0xff478ef8),
           onPressed: () {
-            Get.offAll(const DashboardScreen());
+            // Get.offAll(const DashboardScreen());
           },
         ),
       ],
