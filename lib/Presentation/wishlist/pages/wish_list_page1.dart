@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../Cart/pages/shopping_cart_page.dart';
 import '../../Common/utils/common_appbar.dart';
 import '../controllers/wishlist_controller.dart';
-import '../widgets/wishlist_item_tile.dart';
 
 class WishlistPage extends StatelessWidget {
   final WishlistController wishlistController = Get.put(WishlistController());

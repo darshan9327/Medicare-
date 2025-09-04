@@ -49,7 +49,9 @@ class _SplashScreenState extends State<SplashScreen> {
               decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [Padding(padding: const EdgeInsets.all(30), child: Image(image: AssetImage("assets/images/Capsules.png"), height: 80))],
+                children: [
+                  Padding(padding: const EdgeInsets.all(30),
+                      child: Image(image: AssetImage("assets/images/Capsules.png"), height: 80))],
               ),
             ),
             SizedBox(height: SConfig.sHeight * 0.05),

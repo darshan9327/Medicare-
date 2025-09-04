@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import '../../../Core/models/product_models/product_by_id.dart';
 
 class WishlistController extends GetxController {

@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/Presentation/Wishlist/widgets/wishlist_product_image.dart';
-import 'package:medicare/Presentation/Wishlist/widgets/wishlist_product_info.dart';
-
-import '../../Common/utils/size_config.dart';
-import '../../product/pages/product_details_page.dart';
 
 class WishlistItemTile extends StatelessWidget {
   // final Product1 product;

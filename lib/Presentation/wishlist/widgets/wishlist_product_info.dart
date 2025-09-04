@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/Presentation/product/pages/product_details_page.dart';
-import 'package:medicare/Presentation/Wishlist/widgets/wishlist_buttons.dart';
 
 import '../../Common/utils/size_config.dart';
 

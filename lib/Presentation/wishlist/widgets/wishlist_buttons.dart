@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 
 import '../../Cart/controllers/cart_controller.dart';
 import '../../Common/widgets/common_container.dart';
-import '../../Prescription/pages/upload_prescription_page.dart';
-import '../../product/pages/product_details_page.dart';
 import '../controllers/wishlist_controller.dart';
 
 class WishlistButtons extends StatelessWidget {

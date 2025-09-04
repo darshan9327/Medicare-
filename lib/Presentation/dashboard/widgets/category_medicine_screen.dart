@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medicare/Data/data_source.dart';
 import 'package:medicare/Core/models/product_models/all_product.dart';
+import 'package:medicare/Data/data_source.dart';
 import 'package:medicare/Presentation/Common/utils/common_appbar.dart';
+
 import '../../product/pages/product_details_page.dart';
 import 'medicine_list.dart';
 

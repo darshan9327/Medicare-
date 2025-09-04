@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicare/Presentation/Common/utils/common_appbar.dart';
+
 import '../../../Core/models/product_models/product_by_id.dart';
 import '../../../Data/data_source.dart';
 import '../../Cart/controllers/cart_controller.dart';
@@ -8,9 +9,9 @@ import '../../Cart/pages/shopping_cart_page.dart';
 import '../../Common/utils/size_config.dart';
 import '../../Wishlist/controllers/wishlist_controller.dart';
 import '../../Wishlist/pages/wish_list_page1.dart';
+import '../widgets/product_action_buttons.dart';
 import '../widgets/product_image.dart';
 import '../widgets/product_price_section.dart';
-import '../widgets/product_action_buttons.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final int productId;

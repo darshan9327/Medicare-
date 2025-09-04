@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Common/utils/size_config.dart';
-import '../../product/pages/product_details_page.dart';
 import '../pages/search_page.dart';
 
 class SearchResultTile extends StatelessWidget {

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicare/Data/data_source.dart';
 import 'package:medicare/Presentation/Dashboard/widgets/category_grid.dart';
+
 import '../../../Core/models/product_models/all_product.dart';
 import '../../../Core/models/product_models/categories.dart';
 import '../widgets/all_medicines.dart';
-import '../widgets/search_bar.dart';
 import '../widgets/medicine_list.dart';
+import '../widgets/search_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
