@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medicare/Presentation/Cart/controllers/cart_controller.dart';
-import 'package:medicare/Presentation/Common/utils/size_config.dart';
-import 'package:medicare/Presentation/Splash/pages/splash_page.dart';
+import 'package:medicare/Presentation/cart/controllers/cart_controller.dart';
+import 'package:medicare/Presentation/common/utils/size_config.dart';
+import 'package:medicare/Presentation/splash/pages/splash_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
