@@ -14,11 +14,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     WidgetsFlutterBinding.ensureInitialized();
 
     Get.put(CartController(), permanent: true);
-    SConfig.init(context);
     return GetMaterialApp(
+
       title: 'Medicare+',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -26,7 +27,12 @@ class MyApp extends StatelessWidget {
               seedColor: Color(0xff478ef8)
           )
       ),
-      home: SplashScreen(),
+      home: Builder(
+          builder: (context) {
+            SConfig.init(context);
+            return SplashScreen();
+          }
+      )
     );
   }
 }
